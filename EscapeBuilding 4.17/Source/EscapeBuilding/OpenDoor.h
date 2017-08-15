@@ -4,8 +4,9 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
+#include "GameFramework/Actor.h"
+#include "Engine/TriggerVolume.h"
 #include "OpenDoor.generated.h"
-
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class ESCAPEBUILDING_API UOpenDoor : public UActorComponent
@@ -28,4 +29,7 @@ private:
 	AActor* Owner;
 	float YRot;
 	FQuat DoorMov;
+
+	UPROPERTY(EditAnywhere)
+	ATriggerVolume *PressurePlate;
 };
