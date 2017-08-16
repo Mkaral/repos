@@ -4,50 +4,38 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
-
-#include "GameFramework/Actor.h"
-#include "Engine/TriggerVolume.h"
+#include "GameFramework/PlayerController.h"
 #include "Engine/World.h"
-#include "Public/TimerManager.h"
+#include "Public/DrawDebugHelpers.h"
+#include "grabber.generated.h"
 
-#include "OpenDoor.generated.h"
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
-class ESCAPEBUILDING_API UOpenDoor : public UActorComponent
+class ESCAPEBUILDING_API Ugrabber : public UActorComponent
 {
 	GENERATED_BODY()
 
 public:	
 	// Sets default values for this component's properties
-	UOpenDoor();
+	Ugrabber();
 
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
 
-	void OpenDoor();
-
 public:	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
-	void CloseDoor();
-
 private:
-	AActor* Owner;
-	FQuat DoorMov;
-	bool isTriggerPlate;
+	AActor *Player;
+	APlayerController *PlayerCon;
+	
+	UPROPERTY(VisibleAnywhere)
+	FVector vec; // PlayerViewPointLocation
 
-	UPROPERTY(EditAnywhere)
-	float openAngle = 70.0f;
+	UPROPERTY(VisibleAnywhere)
+	FRotator rot; // PlayerViewPointRotation
 
-	UPROPERTY(EditAnywhere)
-	ATriggerVolume *PressurePlate;
-
-	UPROPERTY(EditAnywhere)
-		float DoorCloseDelay = 0.5f;
-
-	float LastDoorOpenTime;
-
-	AActor *ActorThatOpens;
+	float Reach = 100.f;
 };
